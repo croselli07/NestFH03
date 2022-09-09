@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 //Eset decort es q lo puedo inyectar
 @Injectable()
@@ -27,7 +27,10 @@ export class CarsService {
     } 
 
     findById(id: number){
-        return this.cars.find(id, id)
+        const car= this.cars.find(car => car.id == id)
+        //Ya me arma la excepcion , solo la envio y hasta le agrego un mensaj
+        if(car== null) throw new NotFoundException('Ho hay car')
+        return car;
     }
 
 }

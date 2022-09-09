@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { CarsService } from './cars.service';
 //Escucho las peticiones y envio respuesta
 //Este es el path '/cars' dentro de la URL para acceder
@@ -19,8 +19,16 @@ export class CarsController {
     }
 
     @Get(':idLlega')
-                //param que me llega lo asocio al id que uso en la funcion
-    getCarById( @Param('idLlega') id: number ){
+    //param que me llega lo asocio al id que uso en la funcion
+    getCarById( @Param('idLlega', ParseIntPipe) id: number ){
         return this.carsService.findById(id);
+    }
+
+    @Post()
+    createCar(){
+        return {
+            ok: true,
+            metodo: 'POST'
+        }
     }
 }
