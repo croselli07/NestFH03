@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Patch } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Patch, ParseUUIDPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
+import { CreateCarDTO } from './dto/create-car.dto';
 //Escucho las peticiones y envio respuesta
 //Este es el path '/cars' dentro de la URL para acceder
 @Controller('cars')
@@ -20,13 +21,16 @@ export class CarsController {
 
     @Get(':idLlega')
     //param que me llega lo asocio al id que uso en la funcion
-    getCarById( @Param('idLlega', ParseIntPipe) id: number ){
+    //Parse****Pipe es para definir l tipo de dato que llega y si no es el correcto 
+    //devuelve un error 40X
+    getCarById( @Param('idLlega', ParseUUIDPipe) id: string ){
         return this.carsService.findById(id);
     }
 
+    //Utilizo DTO
     @Post()
-    createCar(@Body() body: any){
-        return body;
+    createCar(@Body() createCarDTO: CreateCarDTO){
+        return createCarDTO;
     }
     @Patch(':idLlega')
     UpdateCar(

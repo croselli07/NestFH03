@@ -45,4 +45,6 @@ Todos los servicios son Providers, pero no todos los providerson servicios
 Esto es porque los providers no siempre tienen logica
 PARA INYECTAR LO HAGO A TRAVES DE UN CONSTRUCTOR
 
-### DTO
+#### DTO
+Objeto para transferir data, es una clase no es una interface porque no puede tener 
+funcionalidades
