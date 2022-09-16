@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Patch } from '@nestjs/common';
 import { CarsService } from './cars.service';
 //Escucho las peticiones y envio respuesta
 //Este es el path '/cars' dentro de la URL para acceder
@@ -25,10 +25,19 @@ export class CarsController {
     }
 
     @Post()
-    createCar(){
-        return {
-            ok: true,
-            metodo: 'POST'
-        }
+    createCar(@Body() body: any){
+        return body;
+    }
+    @Patch(':idLlega')
+    UpdateCar(
+        @Param('idLlega', ParseIntPipe) id : number,
+        @Body() body: any ) 
+        {
+        return body;
+    }
+
+    @Delete()
+    DeleteCar(@Body() body: any){
+        return body;
     }
 }
