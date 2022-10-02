@@ -48,3 +48,5 @@ PARA INYECTAR LO HAGO A TRAVES DE UN CONSTRUCTOR
 #### DTO
 Objeto para transferir data, es una clase no es una interface porque no puede tener 
 funcionalidades
+@UsePipes(ValidationPipe) // Con eso valida los @ que agrego en el DTO
+Trato de usarlo a nivel de aplicacion

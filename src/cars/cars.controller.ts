@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Patch, ParseUUIDPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Patch, ParseUUIDPipe, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { CreateCarDTO } from './dto/create-car.dto';
+import { UpdateCarDTO } from './dto/update-car.dto';
 //Escucho las peticiones y envio respuesta
 //Este es el path '/cars' dentro de la URL para acceder
 @Controller('cars')
+//@UsePipes(ValidationPipe) // Con eso valida los @ que agrego en el DTO
 export class CarsController {
 
     //Cone esto insyecto , como si hiciera un new CarsService
@@ -30,18 +32,21 @@ export class CarsController {
     //Utilizo DTO
     @Post()
     createCar(@Body() createCarDTO: CreateCarDTO){
-        return createCarDTO;
+        return this.carsService.createCarDTO(createCarDTO);
     }
     @Patch(':idLlega')
     UpdateCar(
-        @Param('idLlega', ParseIntPipe) id : number,
-        @Body() body: any ) 
+        @Param('idLlega', ParseUUIDPipe) id : string,
+        @Body() createCarDTO: UpdateCarDTO ) 
         {
-        return body;
-    }
+         return this.carsService.uptadeCarDTO(id,createCarDTO);
+        }
 
-    @Delete()
-    DeleteCar(@Body() body: any){
-        return body;
-    }
+    @Delete(':idLlega')
+    DeleteCar(
+            @Param('idLlega', ParseUUIDPipe) id : string) 
+            {
+             return this.carsService.deleteCarDTO(id);
+            }
+    
 }
